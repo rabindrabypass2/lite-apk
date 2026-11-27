@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private static final String TARGET_URL = "https://link.liteshort.com/BKDcZ";
+    private static final String TARGET_URL = "https://liteshort.com/TnpiIDW4";
 
     private static final Random RANDOM = new Random();
 
