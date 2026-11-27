@@ -941,11 +941,17 @@ public class MainActivity extends AppCompatActivity {
 
         "            if (window.__dj_fired) return;\n" +
 
-        "            const a = d.querySelector('#rtg-snp2')?.closest('a'),\n" +
+        "            const curUrl = location.href;\n" +
+
+        "            const snpBtn = d.querySelector('#rtg-snp2');\n" +
+
+        "            const a = snpBtn ? (snpBtn.closest('a') || (snpBtn.tagName === 'A' ? snpBtn : null)) : null,\n" +
 
         "                  f = d.querySelector('#rtg-snp21 form,#notarobot form,form#rtg'),\n" +
 
         "                  b = d.querySelector('#getlink1,#getlink');\n" +
+
+        "            const fReady = f && (d.readyState !== 'loading' || !!f.querySelector('button,input[type="submit"]'));\n" +
 
         "            if (a) {\n" +
 
@@ -957,9 +963,23 @@ public class MainActivity extends AppCompatActivity {
 
         "                }\n" +
 
-        "                a.click();\n" +
+        "                try { a.click(); } catch(err) {}\n" +
 
-        "            } else if (f) {\n" +
+        "                setTimeout(function() {\n" +
+
+        "                    try {\n" +
+
+        "                        if (location.href === curUrl && a.href && a.href.indexOf('http') === 0) {\n" +
+
+        "                            window.location.href = a.href;\n" +
+
+        "                        }\n" +
+
+        "                    } catch(err) {}\n" +
+
+        "                }, 450);\n" +
+
+        "            } else if (fReady) {\n" +
 
         "                window.__dj_fired = true;\n" +
 
@@ -969,11 +989,25 @@ public class MainActivity extends AppCompatActivity {
 
         "                }\n" +
 
-        "                f.requestSubmit ? f.requestSubmit() : f.submit();\n" +
+        "                try {\n" +
 
-        "            } else if (b) {\n" +
+        "                    HTMLFormElement.prototype.submit.call(f);\n" +
 
-        "                window.__dj_fired = true;\n" +
+        "                } catch(err) {\n" +
+
+        "                    try { f.requestSubmit ? f.requestSubmit() : f.submit(); } catch(e2) {}\n" +
+
+        "                }\n" +
+
+        "                setTimeout(function() {\n" +
+
+        "                    if (location.href === curUrl) window.__dj_fired = false;\n" +
+
+        "                }, 3500);\n" +
+
+        "            } else if (b && !window.__dj_getlink_clicked) {\n" +
+
+        "                window.__dj_getlink_clicked = true;\n" +
 
         "                if (window.AndroidBridge && typeof window.AndroidBridge.onStatusUpdate === 'function') {\n" +
 
@@ -981,9 +1015,9 @@ public class MainActivity extends AppCompatActivity {
 
         "                }\n" +
 
-        "                b.click();\n" +
+        "                try { b.click(); } catch(err) {}\n" +
 
-        "            } else {\n" +
+        "            } else if (!window.__dj_getlink_clicked) {\n" +
 
         "                if (window.AndroidBridge && typeof window.AndroidBridge.onStatusUpdate === 'function') {\n" +
 
