@@ -123,25 +123,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final DeviceProfile[] DEVICE_PROFILES = new DeviceProfile[]{
+        // Flagship & Upper Mid-Range
         new DeviceProfile("Mozilla/5.0 (Linux; Android 14; Pixel 8 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 9, 12, "ARM", "Mali-G715"),
         new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 750"),
         new DeviceProfile("Mozilla/5.0 (Linux; Android 14; CPH2581) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Mobile Safari/537.36", 8, 16, "Qualcomm", "Adreno (TM) 750"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; 23090RA98G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G615 MC6"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-A556B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "Samsung", "Samsung Xclipse 530"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; V2319) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 740"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; RMX3840) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 735"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; motorola edge 50 pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 720"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; 2211133G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 740"),
         new DeviceProfile("Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G710 MC10"),
         new DeviceProfile("Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 12, "ARM", "Mali-G78 MP14"),
-        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; NE2215) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 730")
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; NE2215) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 730"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; 2211133G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 740"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; CPH2449) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 16, "Qualcomm", "Adreno (TM) 740"),
+        // Samsung A / M / F Series
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-A556B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "Samsung", "Samsung Xclipse 530"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-A546E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G68 MP5"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-M346B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36", 8, 6, "ARM", "Mali-G68 MP4"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; SM-M146B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.6668.100 Mobile Safari/537.36", 8, 6, "ARM", "Mali-G68 MP2"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-E546B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G68 MP5"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; SM-A156E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Mobile Safari/537.36", 8, 6, "ARM", "Mali-G57 MC2"),
+        // Redmi / Xiaomi / POCO
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; 23090RA98G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G615 MC6"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; 2311DRK48I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 12, "ARM", "Mali-G615 MC6"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; 23049PCD8I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 725"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; 2201116PI) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.6668.100 Mobile Safari/537.36", 8, 6, "Qualcomm", "Adreno (TM) 619"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; 23076RN4BI) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36", 8, 6, "Qualcomm", "Adreno (TM) 613"),
+        // Vivo / iQOO
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; V2319) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 740"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; I2219) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 644"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; V2250) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G610 MC6"),
+        // Realme / OnePlus Nord / OPPO
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; RMX3840) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 735"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; RMX3771) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.102 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G68 MC4"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; CPH2613) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 732"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; CPH2493) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.6668.100 Mobile Safari/537.36", 8, 8, "Qualcomm", "Adreno (TM) 642L"),
+        // Nothing / Motorola / Infinix / Tecno
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; A065) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 730"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; motorola edge 50 pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.135 Mobile Safari/537.36", 8, 12, "Qualcomm", "Adreno (TM) 720"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 14; Infinix X6850) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G57 MC2"),
+        new DeviceProfile("Mozilla/5.0 (Linux; Android 13; TECNO CK7n) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.6668.100 Mobile Safari/537.36", 8, 8, "ARM", "Mali-G57 MC2")
     };
 
+    private int lastProfileIdx = -1;
     private volatile DeviceProfile activeProfile = DEVICE_PROFILES[0];
     private volatile String currentSpoofJs = "";
 
     private void rotateDeviceProfile() {
-        DeviceProfile p = DEVICE_PROFILES[RANDOM.nextInt(DEVICE_PROFILES.length)];
+        int nextIdx = RANDOM.nextInt(DEVICE_PROFILES.length);
+        if (DEVICE_PROFILES.length > 1 && nextIdx == lastProfileIdx) {
+            nextIdx = (nextIdx + 1 + RANDOM.nextInt(DEVICE_PROFILES.length - 1)) % DEVICE_PROFILES.length;
+        }
+        lastProfileIdx = nextIdx;
+        DeviceProfile p = DEVICE_PROFILES[nextIdx];
         activeProfile = p;
         int canvasXor = 1 + RANDOM.nextInt(250);
         int canvasCh = RANDOM.nextInt(3);
@@ -2041,26 +2071,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            if (!previousIp.isEmpty() && !previousIp.equals("...") && !previousIp.equals("Connected") && newIp.equals(previousIp)) {
-
-                mainHandler.post(() -> tvStatus.setText("Same IP! Re-toggling Airplane..."));
-
-                runRootCommand("cmd connectivity airplane-mode enable || settings put global airplane_mode_on 1");
-
-                try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
-
-                runRootCommand("cmd connectivity airplane-mode disable || settings put global airplane_mode_on 0");
-
-                for (int i = 0; i < 35; i++) {
-
-                    try { Thread.sleep(500); } catch (InterruptedException ignored) {}
-
-                    if (isInternetAvailable()) break;
-
+            for (int ipRetry = 1; ipRetry <= 3; ipRetry++) {
+                if (previousIp.isEmpty() || previousIp.equals("...") || previousIp.equals("Connected") || previousIp.equals("Unknown") || !newIp.equals(previousIp)) {
+                    break;
                 }
-
+                final int retryNum = ipRetry;
+                mainHandler.post(() -> tvStatus.setText("Same IP! Re-toggling Airplane (" + retryNum + "/3)..."));
+                runRootCommand("cmd connectivity airplane-mode enable || settings put global airplane_mode_on 1");
+                try { Thread.sleep(2500); } catch (InterruptedException ignored) {}
+                runRootCommand("cmd connectivity airplane-mode disable || settings put global airplane_mode_on 0");
+                for (int i = 0; i < 40; i++) {
+                    try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+                    if (isInternetAvailable()) break;
+                }
+                try { Thread.sleep(500); } catch (InterruptedException ignored) {}
                 newIp = fetchPublicIp();
-
             }
 
             previousIp = newIp;
