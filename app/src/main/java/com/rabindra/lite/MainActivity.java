@@ -951,7 +951,7 @@ public class MainActivity extends AppCompatActivity {
 
         "                  b = d.querySelector('#getlink1,#getlink');\n" +
 
-        "            const fReady = f && (d.readyState !== 'loading' || !!f.querySelector('button,input[type="submit"]'));\n" +
+        "            const fReady = f && (d.readyState !== 'loading' || !!f.querySelector('button,input[type=submit]'));\n" +
 
         "            if (a) {\n" +
 
