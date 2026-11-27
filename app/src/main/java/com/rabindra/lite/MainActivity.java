@@ -223,11 +223,37 @@ public class MainActivity extends AppCompatActivity {
 
         "\n" +
 
-        "    var curHost = (location.hostname || '').toLowerCase();\n" +
+        "    function isCloudflareChallengePage() {\n" +
 
-        "    var curPath = (location.pathname || '').toLowerCase();\n" +
+        "        try {\n" +
 
-        "    if (curHost.indexOf('cloudflare.com') !== -1 || curPath.indexOf('/cdn-cgi/') !== -1) {\n" +
+        "            var h = (location.hostname || '').toLowerCase();\n" +
+
+        "            var p = (location.pathname || '').toLowerCase();\n" +
+
+        "            var t = (document.title || '').toLowerCase();\n" +
+
+        "            if (h.indexOf('cloudflare.com') !== -1 || p.indexOf('/cdn-cgi/') !== -1) return true;\n" +
+
+        "            if (t.indexOf('just a moment') !== -1 || t.indexOf('attention required') !== -1) return true;\n" +
+
+        "            if (document.querySelector('#challenge-form, #turnstile-wrapper, [name=\"cf-turnstile-response\"], script[src*=\"/cdn-cgi/challenge-platform/\"]')) return true;\n" +
+
+        "        } catch(e){}\n" +
+
+        "        return false;\n" +
+
+        "    }\n" +
+
+        "\n" +
+
+        "    if (isCloudflareChallengePage()) {\n" +
+
+        "        if (window.AndroidBridge && typeof window.AndroidBridge.onStatusUpdate === 'function') {\n" +
+
+        "            window.AndroidBridge.onStatusUpdate('Cloudflare Check (complete manually)');\n" +
+
+        "        }\n" +
 
         "        return;\n" +
 
@@ -683,9 +709,25 @@ public class MainActivity extends AppCompatActivity {
 
         "        try {\n" +
 
+        "            if (isCloudflareChallengePage()) return;\n" +
+
         "            var h = (location.hostname || '').toLowerCase();\n" +
 
         "            if (h.indexOf('liteshort.com') === -1) return;\n" +
+
+        "            if (typeof app_vars !== 'undefined' && app_vars && (app_vars.enable_captcha === 'yes' || app_vars.captcha_shortlink === 'yes')) {\n" +
+
+        "                if (!window.__ls_cap_notice && window.AndroidBridge && typeof window.AndroidBridge.onStatusUpdate === 'function') {\n" +
+
+        "                    window.__ls_cap_notice = true;\n" +
+
+        "                    window.AndroidBridge.onStatusUpdate('LiteShort: complete captcha manually');\n" +
+
+        "                }\n" +
+
+        "                return;\n" +
+
+        "            }\n" +
 
         "            if (window.__ls_xhr_done) return;\n" +
 
@@ -693,21 +735,37 @@ public class MainActivity extends AppCompatActivity {
 
         "            if (!goForm) return;\n" +
 
-        "            var inputs = goForm.getElementsByTagName('input');\n" +
+        "            var inputs = goForm.querySelectorAll('input, select, textarea');\n" +
 
         "            var csrfVal = null;\n" +
 
         "            var adVal = null;\n" +
 
+        "            var pairs = [];\n" +
+
+        "            var hasMethod = false;\n" +
+
         "            for (var i = 0; i < inputs.length; i++) {\n" +
 
-        "                if (inputs[i].name === '_csrfToken') csrfVal = inputs[i].value;\n" +
+        "                var inp = inputs[i];\n" +
 
-        "                if (inputs[i].name === 'ad_form_data') adVal = inputs[i].value;\n" +
+        "                if (!inp.name || inp.disabled) continue;\n" +
+
+        "                if ((inp.type === 'checkbox' || inp.type === 'radio') && !inp.checked) continue;\n" +
+
+        "                if (inp.name === '_method') hasMethod = true;\n" +
+
+        "                if (inp.name === '_csrfToken') csrfVal = inp.value;\n" +
+
+        "                if (inp.name === 'ad_form_data') adVal = inp.value;\n" +
+
+        "                pairs.push(encodeURIComponent(inp.name) + '=' + encodeURIComponent(inp.value || ''));\n" +
 
         "            }\n" +
 
         "            if (!csrfVal || !adVal) return;\n" +
+
+        "            if (!hasMethod) pairs.unshift('_method=POST');\n" +
 
         "            window.__ls_xhr_done = true;\n" +
 
@@ -717,11 +775,13 @@ public class MainActivity extends AppCompatActivity {
 
         "            }\n" +
 
-        "            var body = '_method=POST&_csrfToken=' + encodeURIComponent(csrfVal) + '&ad_form_data=' + encodeURIComponent(adVal);\n" +
+        "            var body = pairs.join('&');\n" +
+
+        "            var actionUrl = goForm.getAttribute('action') || '/links/go';\n" +
 
         "            var xhrGo = new XMLHttpRequest();\n" +
 
-        "            xhrGo.open('POST', '/links/go', true);\n" +
+        "            xhrGo.open('POST', actionUrl, true);\n" +
 
         "            xhrGo.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');\n" +
 
@@ -745,13 +805,39 @@ public class MainActivity extends AppCompatActivity {
 
         "                        setTimeout(function(){ window.location.href = r.url; }, 200);\n" +
 
+        "                        return;\n" +
+
+        "                    }\n" +
+
+        "                    if (r && r.message && window.AndroidBridge && typeof window.AndroidBridge.onStatusUpdate === 'function') {\n" +
+
+        "                        window.AndroidBridge.onStatusUpdate('LiteShort: ' + r.message);\n" +
+
         "                    }\n" +
 
         "                } catch(e) {}\n" +
 
+        "                window.__ls_xhr_tries = (window.__ls_xhr_tries || 0) + 1;\n" +
+
+        "                if (window.__ls_xhr_tries < 4) {\n" +
+
+        "                    setTimeout(function(){ window.__ls_xhr_done = false; }, 2500);\n" +
+
+        "                }\n" +
+
         "            };\n" +
 
-        "            xhrGo.onerror = function() { window.__ls_xhr_done = false; };\n" +
+        "            xhrGo.onerror = function() {\n" +
+
+        "                window.__ls_xhr_tries = (window.__ls_xhr_tries || 0) + 1;\n" +
+
+        "                if (window.__ls_xhr_tries < 4) {\n" +
+
+        "                    setTimeout(function(){ window.__ls_xhr_done = false; }, 2000);\n" +
+
+        "                }\n" +
+
+        "            };\n" +
 
         "            xhrGo.send(body);\n" +
 
@@ -807,7 +893,7 @@ public class MainActivity extends AppCompatActivity {
 
         "            if (p.indexOf('new.php') !== -1) return;\n" +
 
-        "            if (p.indexOf('/cdn-cgi/') !== -1 || h.indexOf('cloudflare.com') !== -1) return;\n" +
+        "            if (isCloudflareChallengePage()) return;\n" +
 
         "            if (h.indexOf('mediafire.com') !== -1) return;\n" +
 
@@ -1410,7 +1496,7 @@ public class MainActivity extends AppCompatActivity {
 
                         tvStatus.setTextColor(Color.parseColor("#FFA500"));
 
-                        tvStatus.setText("Verifying Cloudflare... solving");
+                        tvStatus.setText("Cloudflare Check (complete manually)");
 
                         armWatchdog();
 
@@ -1468,7 +1554,7 @@ public class MainActivity extends AppCompatActivity {
 
                     tvStatus.setTextColor(Color.parseColor("#FFA500"));
 
-                    tvStatus.setText("Verifying Cloudflare... solving");
+                    tvStatus.setText("Cloudflare Check (complete manually)");
 
                     return;
 
